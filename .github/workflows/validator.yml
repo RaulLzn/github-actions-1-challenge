@@ -1,7 +1,7 @@
 name: 🤖 Validador de Acciones Compuestas
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
