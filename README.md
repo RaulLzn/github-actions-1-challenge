@@ -167,3 +167,5 @@ El validador hará esto:
 
   * **Si tu PR muestra un ✅ verde:** ¡Felicidades\! Lo lograste.
   * **Si tu PR muestra una ❌ roja:** No te preocupes. Haz clic en "Details" para leer los logs, ver qué falló, arreglarlo en tu rama local, hacer `commit` y `push` de nuevo. La PR se actualizará y volverá a correr la prueba automáticamente.
+
+  Prueba PR
