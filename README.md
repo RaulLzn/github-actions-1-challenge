@@ -163,6 +163,8 @@ El validador hará esto:
 4.  Leerá la salida de tu acción (`${{ steps.student-action.outputs.error-count }}`).
 5.  Comparará tu resultado con la respuesta correcta (que es `3`).
 
+Prueba 2
+
 <!-- end list -->
 
   * **Si tu PR muestra un ✅ verde:** ¡Felicidades\! Lo lograste.
