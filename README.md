@@ -1,4 +1,4 @@
-### 🚀 Reto Avanzado: Creador de Acciones
+### Reto Avanzado: Creador de Acciones
 
 > Tu reto es crear una "Acción Compuesta" (Composite Action) que analice archivos de log.
 
