@@ -1,0 +1,42 @@
+name: 🤖 Validador de Acciones Compuestas
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-action:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Obtener el código de la PR del estudiante
+      - name: Obtener el código de la PR
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      # 2. Ejecutar la ACCIÓN que el estudiante creó
+      # Esta es la parte clave: 'uses' apunta a la carpeta
+      # que el estudiante creó EN SU RAMA.
+      - name: Ejecutar la acción del estudiante
+        id: student-action # Le damos un ID para leer su salida
+        uses: ./_actions/log-analyzer # ¡Usa la acción de la PR!
+        with:
+          log-file: 'data/log-produccion.txt' # Le pasamos el log de prueba
+
+      # 3. Validar la salida de la acción del estudiante
+      - name: Validar el resultado
+        run: |
+          # El número esperado de errores en el log es 3
+          EXPECTED_COUNT="3"
+          # Obtenemos la salida de la acción del estudiante
+          ACTUAL_COUNT="${{ steps.student-action.outputs.error-count }}"
+
+          echo "Salida de la acción del estudiante: $ACTUAL_COUNT"
+
+          if [ "$ACTUAL_COUNT" != "$EXPECTED_COUNT" ]; then
+            echo "❌ Fallo: Se esperaban $EXPECTED_COUNT errores, pero tu acción reportó $ACTUAL_COUNT."
+            exit 1
+          else
+            echo "✅ ¡Éxito! Tu acción contó los errores correctamente."
+          fi

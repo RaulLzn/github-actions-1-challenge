@@ -1,0 +1,8 @@
+[INFO] 2025-11-11 10:00:00 - Servicio de usuarios iniciado.
+[INFO] 2025-11-11 10:01:00 - Petición GET /usuarios.
+[ERROR] 2025-11-11 10:02:00 - Fallo al conectar con la base de datos.
+[INFO] 2025-11-11 10:03:00 - Petición GET /productos.
+[WARN] 2025-11-11 10:04:00 - API de pagos lenta.
+[ERROR] 2025-11-11 10:05:00 - Timeout en servicio de pagos.
+[INFO] 2025-11-11 10:06:00 - Petición POST /usuarios.
+[ERROR] 2025-11-11 10:07:00 - Email inválido.
