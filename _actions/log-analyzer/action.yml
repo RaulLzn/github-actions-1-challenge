@@ -1,0 +1,28 @@
+name: 'Analizador de Logs'
+description: 'Cuenta líneas de ERROR en un archivo de log.'
+
+inputs:
+  log-file:
+    description: 'Ruta al archivo de log para analizar'
+    required: true
+
+outputs:
+  error-count:
+    description: 'Número total de errores encontrados'
+    value: ${{ steps.count-step.outputs.count }}
+
+runs:
+  using: 'composite'
+  steps:
+    - id: count-step
+      run: |
+        echo "Analizando el archivo: ${{ inputs.log-file }}"
+        
+        # Contar líneas con la palabra "ERROR"
+        COUNT=$(grep -c "ERROR" ${{ inputs.log-file }} || true)
+        
+        echo "Errores encontrados: $COUNT"
+
+        # Exportar el resultado a la salida del step
+        echo "count=$COUNT" >> $GITHUB_OUTPUT
+      shell: bash
