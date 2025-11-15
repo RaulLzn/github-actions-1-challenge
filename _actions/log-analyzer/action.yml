@@ -1,0 +1,35 @@
+name: 'Analizador de Logs'
+description: 'Cuenta líneas de ERROR en un archivo de log.'
+# ... (debajo de la descripción)
+inputs:
+  log-file: # Este es el ID que usamos (el reto pide 'log-file')
+    description: 'Ruta al archivo de log para analizar'
+    required: true # El validador siempre te lo proporcionará
+# ... (debajo de los inputs)
+outputs:
+  error-count: # Este es el ID que el validador leerá
+    description: 'Número total de errores encontrados'
+    # Esta línea es CLAVE: le dice a la salida "error-count"
+    # que su valor vendrá del paso con ID "count-step" y su salida "count".
+    value: ${{ steps.count-step.outputs.count }}
+# ... (debajo de los outputs)
+runs:
+  using: 'composite' # ¡Importante! Define el tipo de acción
+  steps:
+    # Este es el único paso que necesitamos
+    - id: count-step # ¡Este ID debe coincidir con el 'value' de arriba!
+      run: |
+        echo "Analizando el archivo: ${{ inputs.log-file }}"
+        
+        # 1. Contamos las líneas con "ERROR"
+        #    Usamos '|| true' para que el script no falle si grep no encuentra nada
+        COUNT=$(grep -c "ERROR" ${{ inputs.log-file }} || true)
+        
+        echo "Errores encontrados: $COUNT"
+        
+        # 2. Esta es la línea MÁS IMPORTANTE
+        #    Así es como un script de bash se comunica con las 
+        #    'outputs' de un 'step' en GitHub Actions.
+        echo "count=$COUNT" >> $GITHUB_OUTPUT
+        
+      shell: bash # Le decimos que use bash
